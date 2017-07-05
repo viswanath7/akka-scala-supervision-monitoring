@@ -108,3 +108,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 /.idea/
+/akka-scala-supervision-monitoring.iml
