@@ -6,6 +6,8 @@ import com.example.akka.application.Romeo.Tragic
 import org.scalatest.{BeforeAndAfterAll, FlatSpecLike, MustMatchers}
 import org.slf4j.LoggerFactory
 
+import scala.language.postfixOps
+
 /**
   * Unit test for Romeo Actor
   *
@@ -29,6 +31,7 @@ class RomeoSpec extends TestKit(ActorSystem("test-system")) with ImplicitSender
   }
 
   "Romeo actor" must "stop oneself upon receiving Tragic message" in {
+    import scala.concurrent.duration._
 
     val testProbe = TestProbe()
     val romeo = system.actorOf(Romeo.props, "romeo")
@@ -36,7 +39,10 @@ class RomeoSpec extends TestKit(ActorSystem("test-system")) with ImplicitSender
 
     romeo ! Tragic
 
-    testProbe expectTerminated romeo
+    within(10 microseconds, 5 seconds) {
+      logger debug "Romeo must be terminated within 5 seconds ..."
+      testProbe expectTerminated romeo
+    }
   }
 
 }
