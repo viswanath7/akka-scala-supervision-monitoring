@@ -23,7 +23,7 @@ class RomeoSpec extends TestKit(ActorSystem("test-system")) with ImplicitSender
 
 
   override def afterAll: Unit = {
-    logger debug "Shutting down the actor system once all the tests have been completed " +
+    logger debug "Shutting down the actor system as all the tests have been completed " +
       "so that all actors—including the test actor—are stopped. ..."
     TestKit shutdownActorSystem system
   }
